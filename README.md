@@ -43,7 +43,6 @@ Things you may want to cover:
 |name|string|null: false|
 |email|text|null: false, unique: true|
 |password|string|null: false|
-|group_id|integer|null: false, foreign_key: true|
 
 ### Association
 
@@ -58,7 +57,6 @@ has_many :groups, through: :members
 |Column|Type|Options|
 |------|----|-------|
 |name|string|null: false|
-|user_id|integer|null: false, foreign_key: true|
 
 ### Association
 
