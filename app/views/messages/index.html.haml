@@ -24,7 +24,7 @@
               .group__name
                 = group.name
               .group__message
-                メッセージはまだありません
+                = group.show_last_message
       %a{href: "/groups/:id/messages"}
         %div.group
           %p.group__group-name
@@ -52,19 +52,14 @@
       %div.message
         %div.upper-info
           %p.upper-info__user
-            test-user
+            = message.user.name
           %p.upper-info__date
-            2019/04/18(Thu) 14:12:18
+            = message.created_at.strftime("%&/%m/%d %H:%M")
         %p.message__text
-          こんにちは
-      %div.message
-        %div.upper-info
-          %p.upper-info__user
-            test-user
-          %p.upper-info__date
-            2019/04/18(Thu) 14:12:18
-        %p.message__text
-          さようなら
+            - if message.content.present?
+            %p.message__text
+              = message.content
+            = image_tag message.image.url, class: 'lower-message__image' if message.image.present?
     .form
       = form_for [@group, @message] do |f|
         = f.text_field :content, class: 'form__message', placeholder: 'type a message'
