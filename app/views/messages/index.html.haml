@@ -65,14 +65,23 @@
             2019/04/18(Thu) 14:12:18
         %p.message__text
           さようなら
-    %div.form
-      %form#new_message.new-message{"accept-charset" => "UTF-8", :action => "/groups/574/messages", :enctype => "multipart/form-data", :method => "post"}
-      %input{:name => "utf8", :type => "hidden", :value => "✓"}/
-      %input{:name => "authenticity_token", :type => "hidden", :value => "rPiTDhiityARxdpQzjHlFMcg5CSz2eV1709En1GCesNRtA5ZiN6Q7xxGGfZlvTJJ4wH1EDDGuk/nP5OFRW6qWQ=="}/
-      .input-box
-        %input#message_content.input-box__text{:name => "message[content]", :placeholder => "type a message", :type => "text"}/
-        %label.image-label{:for => "message_image",}
-          %i.fa.fa-image
-          %input#message_image.image-label__input{:name => "message[image]", :type => "file"}/
-      %input.new-message__submit-btn{"data-disable-with" => "Send", :name => "commit", :type => "submit", :value => "Send"}/
+    .form
+      = form_for [@group, @message] do |f|
+        = f.text_field :content, class: 'form__message', placeholder: 'type a message'
+        .form__mask
+          = f.label :image, class: 'form__mask__image' do
+            = fa_icon 'picture-o', class: 'icon'
+            = f.file_field :image, class: 'hidden'
+          = f.submit 'Send', class: 'form__submit'
+          
+    -# %div.form
+    -#   %form#new_message.new-message{"accept-charset" => "UTF-8", :action => "/groups/574/messages", :enctype => "multipart/form-data", :method => "post"}
+    -#   %input{:name => "utf8", :type => "hidden", :value => "✓"}/
+    -#   %input{:name => "authenticity_token", :type => "hidden", :value => "rPiTDhiityARxdpQzjHlFMcg5CSz2eV1709En1GCesNRtA5ZiN6Q7xxGGfZlvTJJ4wH1EDDGuk/nP5OFRW6qWQ=="}/
+    -#   .input-box
+    -#     %input#message_content.input-box__text{:name => "message[content]", :placeholder => "type a message", :type => "text"}/
+    -#     %label.image-label{:for => "message_image",}
+    -#       %i.fa.fa-image
+    -#       %input#message_image.image-label__input{:name => "message[image]", :type => "file"}/
+    -#   %input.new-message__submit-btn{"data-disable-with" => "Send", :name => "commit", :type => "submit", :value => "Send"}/
 
