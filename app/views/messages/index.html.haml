@@ -8,8 +8,10 @@
         = current_user.name
       %ul.user-menu
         %li.user-menu__edit-user
-          %a{href: "/groups/new"}
-            %i.fa.fa-edit.icon_color
+          -# %a{href: "/groups/new"}
+          -#   %i.fa.fa-edit.icon_color
+          = link_to new_group_path do
+            = fa_icon 'pencil-square-o', class: 'icon'
         %li.user-menu__new-group
           -# %a{href: "users/:id/edit"}
           -#   %i.fa.fa-cog.icon_color
