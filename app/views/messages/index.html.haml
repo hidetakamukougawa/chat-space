@@ -4,7 +4,6 @@
   %div.chat-side
     %div.side-header
       %p.side-header__user-name
-        -# test-user
         = current_user.name
       %ul.user-menu
         %li.user-menu__edit-user
@@ -20,10 +19,12 @@
     %div.groups
       %a{href: "/groups/:id/messages"}
         %div.group
-          %p.group__group-name
-            test-group
-          %p.group__latest-message
-            さようなら
+          - current_user.groups.each do |group|
+            = link_to group_messages_path(group) do
+              .group__name
+                = group.name
+              .group__message
+                メッセージはまだありません
       %a{href: "/groups/:id/messages"}
         %div.group
           %p.group__group-name
