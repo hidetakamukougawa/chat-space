@@ -1,78 +1,47 @@
-%div.flash-box
-  グループを作成しました
-%div.wrapper
-  %div.chat-side
-    %div.side-header
+.notification
+  .notice
+.wrapper
+  .chat-side
+    .side-header
       %p.side-header__user-name
         = current_user.name
       %ul.user-menu
         %li.user-menu__edit-user
-          -# %a{href: "/groups/new"}
-          -#   %i.fa.fa-edit.icon_color
           = link_to new_group_path do
-            = fa_icon 'pencil-square-o', class: 'icon'
+            = fa_icon 'pencil-square-o', class: 'icon_color'
         %li.user-menu__new-group
-          -# %a{href: "users/:id/edit"}
-          -#   %i.fa.fa-cog.icon_color
           = link_to edit_user_path(current_user) do
-            = fa_icon 'cog', class: 'icon'
-    %div.groups
-      %a{href: "/groups/:id/messages"}
-        %div.group
-          - current_user.groups.each do |group|
-            = link_to group_messages_path(group) do
-              .group__name
-                = group.name
-              .group__message
-                メッセージはまだありません
-      %a{href: "/groups/:id/messages"}
-        %div.group
-          %p.group__group-name
-            sample-group
-          %p.group__latest-message
-            hello!
-      %a{href: "/groups/:id/messages"}
-        %div.group
-          %p.group__group-name
-            example
-          %p.group__latest-message
-            まだメッセージがありません
-  %div.chat-main
-    %div.main-header
-      %div.current-group
+            = fa_icon 'cog', class: 'icon_color'
+    .groups
+      - current_user.groups.each do |group|
+        = link_to group_messages_path(group) do
+          .group
+            .group__name
+              = group.name
+            .group__message
+              = group.show_last_message
+            
+  .chat-main
+    .main-header
+      .current-group
         %h2
-          test-group
+          = @group.name
         %ul
           Member：
           %li
-            test
-      %a{href: "/groups/:id/edit"}
-        %div.main-header__edit-btn Edit
-    %div.messages
-      %div.message
-        %div.upper-info
-          %p.upper-info__user
-            test-user
-          %p.upper-info__date
-            2019/04/18(Thu) 14:12:18
-        %p.message__text
-          こんにちは
-      %div.message
-        %div.upper-info
-          %p.upper-info__user
-            test-user
-          %p.upper-info__date
-            2019/04/18(Thu) 14:12:18
-        %p.message__text
-          さようなら
-    %div.form
-      %form#new_message.new-message{"accept-charset" => "UTF-8", :action => "/groups/574/messages", :enctype => "multipart/form-data", :method => "post"}
-      %input{:name => "utf8", :type => "hidden", :value => "✓"}/
-      %input{:name => "authenticity_token", :type => "hidden", :value => "rPiTDhiityARxdpQzjHlFMcg5CSz2eV1709En1GCesNRtA5ZiN6Q7xxGGfZlvTJJ4wH1EDDGuk/nP5OFRW6qWQ=="}/
-      .input-box
-        %input#message_content.input-box__text{:name => "message[content]", :placeholder => "type a message", :type => "text"}/
-        %label.image-label{:for => "message_image",}
-          %i.fa.fa-image
-          %input#message_image.image-label__input{:name => "message[image]", :type => "file"}/
-      %input.new-message__submit-btn{"data-disable-with" => "Send", :name => "commit", :type => "submit", :value => "Send"}/
+            - @group.group_users.each do |group_user|
+              = group_user.user.name
+      %a{href: "/groups/#{@group.id}/edit"}
+        .main-header__edit-btn Edit
+    .messages
+      = render @messages
+    .form
+      = form_for [@group, @message] do |f|
+        = f.text_field :content, class: 'form__message', placeholder: 'type a message'
+        .form__mask
+          = f.label :image, class: 'form__mask__image' do
+            = fa_icon 'picture-o', class: 'icon'
+            = f.file_field :image, class: 'hidden'
+        = f.submit 'Send', class: 'form__submit'
+
 
