@@ -1,11 +1,11 @@
-.message
-  .upper-info
-    .upper-info__user
+%div.message
+  %div.upper-info
+    %p.upper-info__user
       = message.user.name
-    .upper-info__date
+    %p.upper-info__date
       = message.created_at.strftime("%Y/%m/%d %H:%M")
-  .message__text
-    - if message.content.present?
-      .message__text
-        = message.content
-    = image_tag message.image.url, class: 'lower-message__image' if message.image.present?
+  .lower-info
+    = image_tag message.image.url, class: 'lower-message__image' if message.image.present?  - if message.present?
+    %p.message__text
+      = message.content
+  = image_tag message.image.url, class: 'lower-message__image' if message.image.present?

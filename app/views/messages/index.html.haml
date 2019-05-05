@@ -1,8 +1,25 @@
 .notification
   .notice
-
 .wrapper
-  =render partial: "shared/chat-side"
+  .chat-side
+    .side-header
+      %p.side-header__user-name
+        = current_user.name
+      %ul.user-menu
+        %li.user-menu__edit-user
+          = link_to new_group_path do
+            = fa_icon 'pencil-square-o', class: 'icon_color'
+        %li.user-menu__new-group
+          = link_to edit_user_path(current_user) do
+            = fa_icon 'cog', class: 'icon_color'
+    .groups
+      - current_user.groups.each do |group|
+        = link_to group_messages_path(group) do
+          .group
+            .group__name
+              = group.name
+            .group__message
+              = group.show_last_message
   .chat-main
     .main-header
       .current-group
@@ -11,19 +28,18 @@
         %ul
           Member：
           %li
-            - @group.users.each do |user|
-              = user.name
-      .main-header__edit-btn
-        %a.right-header_button
-        = link_to edit_group_path(@group.id) do
-          Edit
+            - @group.group_users.each do |group_user|
+              = group_user.user.name
+      %a{href: "/groups/#{@group.id}/edit"}
+        .main-header__edit-btn Edit
     .messages
-      =render @messages
+      = render @messages
     .form
       = form_for [@group, @message] do |f|
-        = f.text_field :content, class: 'form__message', id: 'new_message', placeholder: 'type a message'
+        = f.text_field :content, class: 'form__message', placeholder: 'type a message'
         .form__mask
           = f.label :image, class: 'form__mask__image' do
             = fa_icon 'picture-o', class: 'icon'
             = f.file_field :image, class: 'hidden'
-          = f.submit 'Send', class: 'form__submit'
+        = f.submit 'Send', class: 'form__submit'
+
