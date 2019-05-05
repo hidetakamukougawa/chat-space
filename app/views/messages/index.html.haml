@@ -20,7 +20,6 @@
               = group.name
             .group__message
               = group.show_last_message
-            
   .chat-main
     .main-header
       .current-group
@@ -43,5 +42,4 @@
             = fa_icon 'picture-o', class: 'icon'
             = f.file_field :image, class: 'hidden'
         = f.submit 'Send', class: 'form__submit'
-
 

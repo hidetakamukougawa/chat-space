@@ -76,7 +76,6 @@ html,body {
         }  
       }
     }
-  
   .chat-main {
     height: 100%;
     width: calc(100vw - 300px);
@@ -149,6 +148,7 @@ html,body {
       height: 90px;
       padding: 20px 50px 20px 40px;
       &__message{
+
         border: none;
         box-sizing: border-box;
         float: left;
@@ -180,5 +180,5 @@ html,body {
         padding: 0 30px;
       }
     }
-    
   }
+
