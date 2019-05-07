@@ -1,7 +1,6 @@
 $(document).on('turbolinks:load', function() {
   function buildHTML(message){
     var img = ""
-    // console.log(message.image.url)
     if (message.image.url != null) {
       img = `<img src="${message.image.url}">`
     }
