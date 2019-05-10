@@ -56,7 +56,6 @@ function appendChatMember(user_name, user_id) {
   $(function() {
     $(document).on('click', '.user-search-add' , function() {
       $("#user-search-result").remove();
-      console.log(this)
       var user_name = $(this).data('user-name');
       var user_id = $(this).data('user-id');
       appendChatMember(user_name, user_id);
