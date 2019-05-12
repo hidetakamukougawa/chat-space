@@ -1,27 +1,60 @@
 $(document).on('turbolinks:load', function() {
-  function buildHTML(message){
-    var img = ""
-    if (message.image.url != null) {
+  var buildMessageHTML = function(message) {
+    if (message.content && message.image.url) {
       img = `<img src="${message.image.url}">`
-    }
-    var html = `<div class="message">
-                  <div class="upper-info">
-                    <p class="upper-info__user">
-                       ${message.user_name}
-                    </p>
-                    <p class="upper-info__date">
-                       ${message.strftime} 
-                    </p>
-                  </div>
-                  <div class="lower-info">
-                    <p class="message__text">
-                      ${message.content}
-                      ${ img }
-                    </p>
-                   </div>
-                </div>`
+      var html = `<div class="message" data-message-id='${message.id}'>
+                    <div class="upper-info">
+                      <p class="upper-info__user">
+                        ${message.user_name}
+                      </p>
+                      <p class="upper-info__date">
+                        ${message.created_at} 
+                      </p>
+                    </div>
+                    <div class="lower-info">
+                      <p class="message__text">
+                        ${message.content}
+                        ${ img }
+                      </p>
+                    </div>
+                  </div>`
+    } else if (message.content) {
+      var html = `<div class="message" data-message-id='${message.id}'>
+                    <div class="upper-info">
+                      <p class="upper-info__user">
+                        ${message.user_name}
+                      </p>
+                      <p class="upper-info__date">
+                        ${message.created_at} 
+                      </p>
+                    </div>
+                    <div class="lower-info">
+                      <p class="message__text">
+                        ${message.content}
+                      </p>
+                    </div>
+                  </div>`
+    } else if (message.image.url) {
+      img = `<img src="${message.image.url}">`
+      var html = `<div class="message" data-message-id='${message.id}'>
+                    <div class="upper-info">
+                      <p class="upper-info__user">
+                        ${message.user_name}
+                      </p>
+                      <p class="upper-info__date">
+                        ${message.created_at} 
+                      </p>
+                    </div>
+                    <div class="lower-info">
+                      <p class="message__text">
+                        ${ img }
+                      </p>
+                    </div>
+                  </div>`
+    };
     return html;
-  }
+  };
+
   $('#new_message').on('submit', function(e){
     e.preventDefault();
     var formData = new FormData(this);
@@ -35,7 +68,7 @@ $(document).on('turbolinks:load', function() {
       contentType: false
     })
     .done(function(message){
-      var html = buildHTML(message);
+      var html = buildMessageHTML(message);
       $('.messages').append(html)
       $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
       $('#new_message')[0].reset();
@@ -46,4 +79,26 @@ $(document).on('turbolinks:load', function() {
     })
     return false;
   })
+
+  var reloadMessages = function() {
+    last_message_id = $('.message:last').data('message-id');
+    $.ajax({
+      url: '/groups/:group_id/api/messages',
+      type: 'get',
+      dataType: 'json',
+      data: {id: last_message_id}
+    })
+    .done(function(messages) {
+      var insertHTML = '';
+      messages.forEach(function(message){
+        insertHTML = buildMessageHTML(message);
+        $('.messages').append(insertHTML)
+        $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
+      });
+    })
+    .fail(function(){
+      alert('error');
+    })
+  };
+  setInterval(reloadMessages, 5000);
 });
