@@ -1,7 +1,8 @@
 $(document).on('turbolinks:load', function() {
   var buildMessageHTML = function(message) {
-    if (message.content && message.image.url) {
-      img = `<img src="${message.image.url}">`
+
+      message.image.url == null ? img = "" : img = `<img src="${message.image.url}">`;
+      
       var html = `<div class="message" data-message-id='${message.id}'>
                     <div class="upper-info">
                       <p class="upper-info__user">
@@ -18,42 +19,8 @@ $(document).on('turbolinks:load', function() {
                       </p>
                     </div>
                   </div>`
-    } else if (message.content) {
-      var html = `<div class="message" data-message-id='${message.id}'>
-                    <div class="upper-info">
-                      <p class="upper-info__user">
-                        ${message.user_name}
-                      </p>
-                      <p class="upper-info__date">
-                        ${message.created_at} 
-                      </p>
-                    </div>
-                    <div class="lower-info">
-                      <p class="message__text">
-                        ${message.content}
-                      </p>
-                    </div>
-                  </div>`
-    } else if (message.image.url) {
-      img = `<img src="${message.image.url}">`
-      var html = `<div class="message" data-message-id='${message.id}'>
-                    <div class="upper-info">
-                      <p class="upper-info__user">
-                        ${message.user_name}
-                      </p>
-                      <p class="upper-info__date">
-                        ${message.created_at} 
-                      </p>
-                    </div>
-                    <div class="lower-info">
-                      <p class="message__text">
-                        ${ img }
-                      </p>
-                    </div>
-                  </div>`
-    };
     return html;
-  };
+    }
 
   $('#new_message').on('submit', function(e){
     e.preventDefault();
