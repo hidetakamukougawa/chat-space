@@ -39,16 +39,9 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
   gem 'spring'
-  gem 'haml-rails'
-  gem 'erb2haml'
-  gem 'font-awesome-rails'
-  gem 'devise'
-  gem 'bootstrap-sass'
   gem 'rspec-rails'
   gem 'rails-controller-testing'
   gem 'factory_bot_rails'
-  gem 'carrierwave'
-  gem 'mini_magick'
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'rails-controller-testing'
@@ -72,3 +65,11 @@ gem 'pry-rails'
 group :production do
   gem 'unicorn', '5.4.1'
 end
+
+  gem 'carrierwave'
+  gem 'mini_magick'
+  gem 'haml-rails'
+  gem 'erb2haml'
+  gem 'font-awesome-rails'
+  gem 'devise'
+  gem 'bootstrap-sass'
