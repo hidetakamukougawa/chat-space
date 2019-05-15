@@ -49,6 +49,7 @@ $(document).on('turbolinks:load', function() {
 
   var reloadMessages = function() {
     last_message_id = $('.message:last').data('message-id');
+    console.log(last_message_id)
     $.ajax({
       url: '/groups/:group_id/api/messages',
       type: 'get',
@@ -64,8 +65,11 @@ $(document).on('turbolinks:load', function() {
       });
     })
     .fail(function(){
-      alert('error');
+      console.log('error');
     })
   };
-  setInterval(reloadMessages, 5000);
+  var url = location.href
+  if ( url == "http://localhost:3000/groups/:group_id/api/messages") {
+    setInterval(reloadMessages, 5000);
+  }  
 });
