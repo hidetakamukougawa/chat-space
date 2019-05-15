@@ -26,6 +26,7 @@ $(document).on('turbolinks:load', function() {
     e.preventDefault();
     var formData = new FormData(this);
     var url = $(this).attr('action')
+
     $.ajax({
       url: url,
       type: "POST",
@@ -47,9 +48,10 @@ $(document).on('turbolinks:load', function() {
     return false;
   })
 
-  var reloadMessages = function() {
+    var reloadMessages = setInterval(function(){
+      if (window.location.href.match(/\/groups\/\d+\/messages/)){
     last_message_id = $('.message:last').data('message-id');
-    console.log(last_message_id)
+
     $.ajax({
       url: '/groups/:group_id/api/messages',
       type: 'get',
@@ -67,9 +69,7 @@ $(document).on('turbolinks:load', function() {
     .fail(function(){
       console.log('error');
     })
-  };
-  var url = location.href
-  if ( url == "http://localhost:3000/groups/:group_id/api/messages") {
-    setInterval(reloadMessages, 5000);
-  }  
+} else {
+  clearInterval(reloadMessages);
+  }} , 5000 )
 });
