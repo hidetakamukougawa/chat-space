@@ -78,3 +78,4 @@ end
   gem 'font-awesome-rails'
   gem 'devise'
   gem 'bootstrap-sass'
+  gem 'fog-aws'
