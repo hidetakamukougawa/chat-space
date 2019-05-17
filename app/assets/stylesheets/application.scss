@@ -53,24 +53,25 @@ html,body {
       }
     }
     .groups {
-      padding: 20px 20px 0;
-      height: calc(100vh - 120px);
+      padding: 0 20px;
+      height: calc(100vh - 100px);
       background-color: #2f3e51;
       overflow: scroll;
       a {
         text-decoration: none;
       }
         .group {
-          height: 45px;
+          // height: 45px;
           width: 260px;
-          margin: 0 0 40px;
+          // margin: 0 0 40px;
+          padding: 20px 0 40px;
           color: white;
             .group__name {
               font-size: 15px;
-              margin: 0 0 5px;
             }
             .group__message {
               font-size: 11px;
+              margin-top: 5px;
             }
           }
         }  
@@ -114,11 +115,12 @@ html,body {
       }
     }
     .messages {
-      height: calc(100% - 190px);
-      padding: 36px 40px;
       background-color: #fafafa;
+      box-sizing: border-box;
+      padding: 46px 40px 0;
+      height: calc(100% - 190px);
       overflow: scroll;
-      max-height: 526px;
+      // max-height: 526px;
       .message {
         padding-bottom: 40px;
       }
