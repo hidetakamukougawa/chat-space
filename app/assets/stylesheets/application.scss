@@ -118,9 +118,8 @@ html,body {
       background-color: #fafafa;
       box-sizing: border-box;
       padding: 46px 40px 0;
-      height: calc(100% - 190px);
+      height: calc(100vh - 190px);
       overflow: scroll;
-      // max-height: 526px;
       .message {
         padding-bottom: 40px;
       }
@@ -150,7 +149,6 @@ html,body {
       height: 90px;
       padding: 20px 50px 20px 40px;
       &__message{
-
         border: none;
         box-sizing: border-box;
         float: left;
@@ -183,5 +181,3 @@ html,body {
       }
     }
   }
-
-.aa{}
