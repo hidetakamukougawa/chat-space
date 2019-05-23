@@ -22,7 +22,7 @@
               = group.show_last_message
   .chat-main
     .main-header
-      .current-group
+      .current-group{data: {group_id: "#{@group.id}"}}
         %h2
           = @group.name
         %ul
